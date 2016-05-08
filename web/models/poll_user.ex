@@ -1,18 +1,13 @@
-defmodule BaxterPoll.User do
+defmodule BaxterPoll.PollUser do
   use BaxterPoll.Web, :model
 
-  schema "users" do
-    field :email, :string
-    field :encrypted_password, :string
-    field :first_last_name, :string
-    field :second_last_name, :string
-    has_many :poll_users, BaxterPoll.PollUser
-    has_many :polls, through: [:poll_users, :poll]
-
+  schema "poll_users" do
+    belongs_to :user, BaxterPoll.User, foreign_key: :user_id
+    belongs_to :poll, BaxterPoll.Poll, foreign_key: :poll_id
     timestamps([{:inserted_at,:created_at}])
   end
 
-  @required_fields ~w(email first_last_name second_last_name)
+  @required_fields ~w()
   @optional_fields ~w()
 
   @doc """
@@ -24,5 +19,7 @@ defmodule BaxterPoll.User do
   def changeset(model, params \\ :empty) do
     model
     |> cast(params, @required_fields, @optional_fields)
+    |> foreign_key_constraint(:user_id)
+    |> foreign_key_constraint(:poll_id)
   end
 end

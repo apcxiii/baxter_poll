@@ -4,7 +4,7 @@ defmodule BaxterPoll.Poll do
   schema "polls" do
     field :name, :string
     field :description, :string
-    field :active, :boolean, default: false
+    field :active, :boolean, default: false    
     timestamps([{:inserted_at,:created_at}])  
 end
 
