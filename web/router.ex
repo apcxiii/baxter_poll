@@ -1,5 +1,6 @@
 defmodule BaxterPoll.Router do
   use BaxterPoll.Web, :router
+  use Addict.RoutesHelper
 
   pipeline :browser do
     plug :accepts, ["html"]
@@ -17,6 +18,10 @@ defmodule BaxterPoll.Router do
     pipe_through :browser # Use the default browser stack
 
     get "/", PageController, :index
+    addict :routes
+
+    resources "/users", UserController
+    resources "/polls", PollController
   end
 
   # Other scopes may use custom stacks.
