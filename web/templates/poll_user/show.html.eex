@@ -1,0 +1,18 @@
+<h2>Show poll user</h2>
+
+<ul>
+
+  <li>
+    <strong>User:</strong>
+    <%= @poll_user.user_id %>
+  </li>
+
+  <li>
+    <strong>Poll:</strong>
+    <%= @poll_user.poll_id %>
+  </li>
+
+</ul>
+
+<%= link "Edit", to: poll_user_path(@conn, :edit, @poll_user) %>
+<%= link "Back", to: poll_user_path(@conn, :index) %>

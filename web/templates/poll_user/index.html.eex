@@ -1,0 +1,28 @@
+<h2>Listing poll users</h2>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>User</th>
+      <th>Poll</th>
+
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+<%= for poll_user <- @poll_users do %>
+    <tr>
+      <td><%= poll_user.user_id %></td>
+      <td><%= poll_user.poll_id %></td>
+
+      <td class="text-right">
+        <%= link "Show", to: poll_user_path(@conn, :show, poll_user), class: "btn btn-default btn-xs" %>
+        <%= link "Edit", to: poll_user_path(@conn, :edit, poll_user), class: "btn btn-default btn-xs" %>
+        <%= link "Delete", to: poll_user_path(@conn, :delete, poll_user), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger btn-xs" %>
+      </td>
+    </tr>
+<% end %>
+  </tbody>
+</table>
+
+<%= link "New poll user", to: poll_user_path(@conn, :new) %>

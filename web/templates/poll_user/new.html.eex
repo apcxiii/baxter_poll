@@ -1,0 +1,6 @@
+<h2>New poll user</h2>
+
+<%= render "form.html", changeset: @changeset,
+                        action: poll_user_path(@conn, :create) %>
+
+<%= link "Back", to: poll_user_path(@conn, :index) %>

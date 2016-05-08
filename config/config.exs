@@ -27,3 +27,13 @@ import_config "#{Mix.env}.exs"
 config :phoenix, :generators,
   migration: true,
   binary_id: false
+
+config :addict,
+  secret_key: "243262243132244f696861784d51346e61525252554e5a487755397975",
+  extra_validation: fn ({valid, errors}, user_params) -> {valid, errors} end, # define extra validation here
+  user_schema: BaxterPoll.User,
+  repo: BaxterPoll.Repo,
+  from_email: "no-reply@example.com", # CHANGE THIS
+  mailgun_domain: "https://api.mailgun.net/v3/sandboxef0fb6e96a494b8dba94a9efce5fca5f.mailgun.org",
+  mailgun_key: "key-7dfa7240cea618fba92f6e71ac8e319b",
+  mail_service: :mailgun
