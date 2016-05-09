@@ -1,0 +1,32 @@
+<h2>Listado de preguntas</h2>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>Orden</th>
+      <th>Texto</th>
+      <th>Active</th>      
+      <th>Tipo</th>
+
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+<%= for poll_topic <- @poll_topics do %>
+    <tr>
+      <td><%= poll_topic.order %></td>
+      <td><%= poll_topic.text %></td>
+      <td><%= poll_topic.active %></td>      
+      <td><%= poll_topic.poll_topic_type.description %></td>
+
+      <td class="text-right">
+        <%= link "Show", to: poll_topic_path(@conn, :show, poll_topic), class: "btn btn-default btn-xs" %>
+        <%= link "Edit", to: poll_topic_path(@conn, :edit, poll_topic), class: "btn btn-default btn-xs" %>
+        <%= link "Delete", to: poll_topic_path(@conn, :delete, poll_topic), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger btn-xs" %>
+      </td>
+    </tr>
+<% end %>
+  </tbody>
+</table>
+
+<%= link "New poll topic", to: poll_topic_path(@conn, :new) %>

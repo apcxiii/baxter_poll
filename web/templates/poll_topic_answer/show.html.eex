@@ -1,0 +1,18 @@
+<h2>Show poll topic answer</h2>
+
+<ul>
+
+  <li>
+    <strong>Poll topic:</strong>
+    <%= @poll_topic_answer.poll_topic_id %>
+  </li>
+
+  <li>
+    <strong>Answer:</strong>
+    <%= @poll_topic_answer.answer %>
+  </li>
+
+</ul>
+
+<%= link "Edit", to: poll_topic_answer_path(@conn, :edit, @poll_topic_answer) %>
+<%= link "Back", to: poll_topic_answer_path(@conn, :index) %>

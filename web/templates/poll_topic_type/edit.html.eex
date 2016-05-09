@@ -1,0 +1,6 @@
+<h2>Edit poll topic type</h2>
+
+<%= render "form.html", changeset: @changeset,
+                        action: poll_topic_type_path(@conn, :update, @poll_topic_type) %>
+
+<%= link "Back", to: poll_topic_type_path(@conn, :index) %>

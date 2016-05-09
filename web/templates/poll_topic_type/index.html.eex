@@ -1,0 +1,26 @@
+<h2>Listing poll topic type</h2>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>Description</th>
+
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+<%= for poll_topic_type <- @poll_topic_type do %>
+    <tr>
+      <td><%= poll_topic_type.description %></td>
+
+      <td class="text-right">
+        <%= link "Show", to: poll_topic_type_path(@conn, :show, poll_topic_type), class: "btn btn-default btn-xs" %>
+        <%= link "Edit", to: poll_topic_type_path(@conn, :edit, poll_topic_type), class: "btn btn-default btn-xs" %>
+        <%= link "Delete", to: poll_topic_type_path(@conn, :delete, poll_topic_type), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger btn-xs" %>
+      </td>
+    </tr>
+<% end %>
+  </tbody>
+</table>
+
+<%= link "New poll topic type", to: poll_topic_type_path(@conn, :new) %>

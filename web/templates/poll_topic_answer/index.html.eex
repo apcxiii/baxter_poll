@@ -1,0 +1,28 @@
+<h2>Listing poll topic answers</h2>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>Poll topic</th>
+      <th>Answer</th>
+
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+<%= for poll_topic_answer <- @poll_topic_answers do %>
+    <tr>
+      <td><%= poll_topic_answer.poll_topic_id %></td>
+      <td><%= poll_topic_answer.answer %></td>
+
+      <td class="text-right">
+        <%= link "Show", to: poll_topic_answer_path(@conn, :show, poll_topic_answer), class: "btn btn-default btn-xs" %>
+        <%= link "Edit", to: poll_topic_answer_path(@conn, :edit, poll_topic_answer), class: "btn btn-default btn-xs" %>
+        <%= link "Delete", to: poll_topic_answer_path(@conn, :delete, poll_topic_answer), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger btn-xs" %>
+      </td>
+    </tr>
+<% end %>
+  </tbody>
+</table>
+
+<%= link "New poll topic answer", to: poll_topic_answer_path(@conn, :new) %>
