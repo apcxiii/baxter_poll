@@ -1,0 +1,28 @@
+<h2>Show poll topic</h2>
+
+<ul>
+
+  <li>
+    <strong>Text:</strong>
+    <%= @poll_topic.text %>
+  </li>
+
+  <li>
+    <strong>Active:</strong>
+    <%= @poll_topic.active %>
+  </li>
+
+  <li>
+    <strong>Order:</strong>
+    <%= @poll_topic.order %>
+  </li>
+
+  <li>
+    <strong>Poll:</strong>
+    <%= @poll_topic.poll_id %>
+  </li>
+
+</ul>
+
+<%= link "Edit", to: poll_topic_path(@conn, :edit, @poll_topic) %>
+<%= link "Back", to: poll_topic_path(@conn, :index) %>

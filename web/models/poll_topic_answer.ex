@@ -1,15 +1,13 @@
-defmodule BaxterPoll.Poll do
+defmodule BaxterPoll.PollTopicAnswer do
   use BaxterPoll.Web, :model
 
-  schema "polls" do
-    field :name, :string
-    field :description, :string
-    field :active, :boolean, default: false
-    has_many :poll_topics, BaxterPoll.PollTopic
-    timestamps([{:inserted_at,:created_at}])  
-end
+  schema "poll_topic_answers" do
+    field :answer, :string
+    belongs_to :poll_topic, BaxterPoll.PollTopic
+    timestamps([{:inserted_at,:created_at}])
+  end
 
-  @required_fields ~w(name description active)
+  @required_fields ~w(answer)
   @optional_fields ~w()
 
   @doc """

@@ -1,0 +1,13 @@
+<h2>Show poll topic type</h2>
+
+<ul>
+
+  <li>
+    <strong>Description:</strong>
+    <%= @poll_topic_type.description %>
+  </li>
+
+</ul>
+
+<%= link "Edit", to: poll_topic_type_path(@conn, :edit, @poll_topic_type) %>
+<%= link "Back", to: poll_topic_type_path(@conn, :index) %>
