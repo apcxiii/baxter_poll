@@ -2,7 +2,7 @@ defmodule BaxterPoll.Repo.Migrations.CreatePollTopicType do
   use Ecto.Migration
 
   def up do
-    create table(:poll_topic_types) do
+    create_if_not_exists table(:poll_topic_types) do
       add :description, :string
       add :created_at, :datetime
       add :updated_at, :datetime

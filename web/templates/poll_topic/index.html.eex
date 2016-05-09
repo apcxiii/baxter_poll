@@ -16,8 +16,7 @@
     <tr>
       <td><%= poll_topic.order %></td>
       <td><%= poll_topic.text %></td>
-      <td><%= poll_topic.active %></td>
-      
+      <td><%= poll_topic.active %></td>      
       <td><%= poll_topic.poll_topic_type.description %></td>
 
       <td class="text-right">
