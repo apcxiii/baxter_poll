@@ -1,0 +1,30 @@
+<h2>Listing user questionaries</h2>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Area</th>
+      <th>Email</th>
+
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+<%= for user_questionary <- @user_questionaries do %>
+    <tr>
+      <td><%= user_questionary.name %></td>
+      <td><%= user_questionary.area %></td>
+      <td><%= user_questionary.email %></td>
+
+      <td class="text-right">
+        <%= link "Show", to: user_questionary_path(@conn, :show, user_questionary), class: "btn btn-default btn-xs" %>
+        <%= link "Edit", to: user_questionary_path(@conn, :edit, user_questionary), class: "btn btn-default btn-xs" %>
+        <%= link "Delete", to: user_questionary_path(@conn, :delete, user_questionary), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger btn-xs" %>
+      </td>
+    </tr>
+<% end %>
+  </tbody>
+</table>
+
+<%= link "New user questionary", to: user_questionary_path(@conn, :new) %>

@@ -1,0 +1,6 @@
+<h2>Edit user questionary</h2>
+
+<%= render "form.html", changeset: @changeset,
+                        action: user_questionary_path(@conn, :update, @user_questionary) %>
+
+<%= link "Back", to: user_questionary_path(@conn, :index) %>
