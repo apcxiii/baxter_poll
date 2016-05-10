@@ -29,6 +29,11 @@
   </div>
 
   <div class="form-group">
+    <%= label f, :poll_topic_type_id, class: "control-label" %>
+    <%= select f, :poll_topic_type_id, ["Multiple": 1, "Abierta": 2], class: "form-control" %>
+  </div>
+
+  <div class="form-group">
     <%= submit "Submit", class: "btn btn-primary" %>
   </div>
 <% end %>
