@@ -6,6 +6,11 @@
   <% end %>
 
   <div class="form-group">
+    <%= label f, :poll_id, class: "control-label" %>
+    <%= select f, :poll_id, ["Encuesta inducción": 1], class: "form-control" %>
+  </div>
+
+  <div class="form-group">
     <%= label f, :text, class: "control-label" %>
     <%= text_input f, :text, class: "form-control" %>
     <%= error_tag f, :text %>
@@ -22,6 +27,8 @@
     <%= number_input f, :order, class: "form-control" %>
     <%= error_tag f, :order %>
   </div>
+
+
 
   <div class="form-group">
     <%= submit "Submit", class: "btn btn-primary" %>
