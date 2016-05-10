@@ -1,0 +1,23 @@
+<h2>Show user questionary</h2>
+
+<ul>
+
+  <li>
+    <strong>Name:</strong>
+    <%= @user_questionary.name %>
+  </li>
+
+  <li>
+    <strong>Area:</strong>
+    <%= @user_questionary.area %>
+  </li>
+
+  <li>
+    <strong>Email:</strong>
+    <%= @user_questionary.email %>
+  </li>
+
+</ul>
+
+<%= link "Edit", to: user_questionary_path(@conn, :edit, @user_questionary) %>
+<%= link "Back", to: user_questionary_path(@conn, :index) %>
