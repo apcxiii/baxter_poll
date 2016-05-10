@@ -2,6 +2,7 @@ defmodule BaxterPoll.UserController do
   use BaxterPoll.Web, :controller
 
   alias BaxterPoll.User
+  alias BaxterPoll.Poll
 
   plug :scrub_params, "user" when action in [:create, :update]
 
@@ -11,20 +12,25 @@ defmodule BaxterPoll.UserController do
   end
 
   def new(conn, _params) do
+    query_poll = from p in Poll, where: p.id == 1, preload: [:poll_topics]
+    polls = Repo.all query_poll
     changeset = User.changeset(%User{})
-    render(conn, "new.html", changeset: changeset)
+    render(conn, "new.html", changeset: changeset, polls: polls)
   end
 
   def create(conn, %{"user" => user_params}) do
     changeset = User.changeset(%User{}, user_params)
 
+    
     case Repo.insert(changeset) do
       {:ok, _user} ->
         conn
         |> put_flash(:info, "User created successfully.")
         |> redirect(to: user_path(conn, :index))
       {:error, changeset} ->
-        render(conn, "new.html", changeset: changeset)
+        query_poll = from p in Poll, where: p.id == 1, preload: [:poll_topics]
+        polls = Repo.all query_poll
+        render(conn, "new.html", changeset: changeset, polls: polls)
     end
   end
 

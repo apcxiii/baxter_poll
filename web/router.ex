@@ -26,6 +26,7 @@ defmodule BaxterPoll.Router do
     resources "/poll_topics", PollTopicController
     resources "/poll_topic_types", PollTopicTypeController
     resources "/poll_topic_answers", PollTopicAnswerController
+    resources "/user_questionaries", UserQuestionaryController
   end
 
   # Other scopes may use custom stacks.
