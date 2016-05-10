@@ -2,16 +2,17 @@ defmodule BaxterPoll.PollTopicController do
   use BaxterPoll.Web, :controller
 
   alias BaxterPoll.PollTopic
+  alias BaxterPoll.Poll
 
   plug :scrub_params, "poll_topic" when action in [:create, :update]
 
   def index(conn, _params) do
     query = from t in PollTopic, preload: [:poll_topic_type]
-    poll_topics = Repo.all(query)
+    poll_topics = Repo.all(query) 
     render(conn, "index.html", poll_topics: poll_topics)
   end
 
-  def new(conn, _params) do
+  def new(conn, _params) do    
     changeset = PollTopic.changeset(%PollTopic{})
     render(conn, "new.html", changeset: changeset)
   end

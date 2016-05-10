@@ -4,14 +4,14 @@ defmodule BaxterPoll.PollTopic do
   schema "poll_topics" do
     field :text, :string
     field :active, :boolean, default: false
-    field :order, :integer
+    field :order, :integer    
     field :poll_topic_type_id, :integer
     has_one :poll_topic_type, BaxterPoll.PollTopicType, foreign_key: :id, references: :poll_topic_type_id    
     belongs_to :poll, BaxterPoll.Poll,foreign_key: :poll_id    
     timestamps([{:inserted_at,:created_at}])
   end
 
-  @required_fields ~w(text active order poll_topic_type_id)
+  @required_fields ~w(text poll_id active order poll_topic_type_id)
   @optional_fields ~w()
 
   @doc """
