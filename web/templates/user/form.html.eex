@@ -36,38 +36,6 @@
   </div>
 
   <div class="form-group">
-    <table class="table">
-      <tr>
-        <td>l. EVALUACION DE LA INDUCCION</td>
-
-      </tr>
-      <tr>
-        <td>Al finalizar la inducción, por favor dedique unos minutos a contestar
-          esta breve encuesta. La Información que nos proporcione será utilicada
-          para conocer el grado de satisfacción que obtuvo durante la inducción, con la finalidad de mejorar nuestro procesos.</td>
-      </tr>
-      <tr>
-        <td>
-        <b>Instrucciones: </b> Para contestar las preguntas, marque el número correspondiente del 1 al 5, donde 1 lo ubica en una posición de Total Desacuerdo y 5 en Total Acuerdo con la fase previamente expresada, escoja únicamente una respuesta por pregunta
-        </td>
-      </tr>
-      
-      <%= for poll <- @polls do %>
-      
-        <%= for topic <- poll.poll_topics do %>  
-        <tr>
-        <td>
-          <%=topic.order%> <%=topic.text%>
-        <td>
-          </tr>
-        <%end%>
-        
-     <% end %>
-     
-      
-    </table>
-  </div>
-  <div class="form-group">
     
   </div>
   <div class="form-group">

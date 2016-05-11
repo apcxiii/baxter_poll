@@ -7,13 +7,14 @@ defmodule BaxterPoll.User do
     field :first_last_name, :string
     field :second_last_name, :string
     field :name, :string
+    field :area, :string
     has_many :poll_users, BaxterPoll.PollUser
     has_many :polls, through: [:poll_users, :poll]
-
+    has_many :user_poll_answers, BaxterPoll.UserPollAnswer
     timestamps([{:inserted_at,:created_at}])
   end
 
-  @required_fields ~w(email name first_last_name second_last_name)
+  @required_fields ~w(email name first_last_name second_last_name area)
   @optional_fields ~w()
 
   @doc """
