@@ -19,10 +19,10 @@
 
   <li>
     <strong>Answer:</strong>
-    <%= @user_poll_answer.ansewr %>
+    <%= @user_poll_answer.answer %>
   </li>
 
 </ul>
 
 <%= link "Edit", to: user_poll_answer_path(@conn, :edit, @user_poll_answer) %>
-<%= link "Back", to: user_poll_answer_path(@conn, :index) %>
+<%= link "Back", to: user_poll_answer_path(@conn, :index_user,@user_poll_answer.user_id) %>

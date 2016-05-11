@@ -29,7 +29,7 @@ defmodule BaxterPoll.UserController do
         make_answers(_user.id)
         conn
         |> put_flash(:info, "User created successfully.")
-        |> redirect(to: user_path(conn, :index))
+        |> redirect(to: user_path(conn, :show,_user))
       {:error, changeset} ->
         polls = get_polls
         render(conn, "new.html", changeset: changeset, polls: polls)

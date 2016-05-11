@@ -29,5 +29,7 @@
 
 </ul>
 
-<%= link "Edit", to: user_path(@conn, :edit, @user) %>
+<%= link "Editar", to: user_path(@conn, :edit, @user) %>
 <%= link "Back", to: user_path(@conn, :index) %>
+<%= link "Encuesta", to: user_poll_answer_path(@conn, :index_user,@user) %>
+
