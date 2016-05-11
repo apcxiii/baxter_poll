@@ -4,10 +4,10 @@
   <thead>
     <tr>
       <th>Email</th>
-      <th>Encrypted password</th>
-      <th>First last name</th>
-      <th>Second last name</th>
-
+      <th>Nombre</th>
+      <th>Apellido Paterno</th>
+      <th>Apellido Materno</th>
+      <th>Área</th>
       <th></th>
     </tr>
   </thead>
@@ -15,9 +15,10 @@
 <%= for user <- @users do %>
     <tr>
       <td><%= user.email %></td>
-      <td><%= user.encrypted_password %></td>
+      <td><%= user.name %></td>
       <td><%= user.first_last_name %></td>
       <td><%= user.second_last_name %></td>
+      <td><%= user.area %></td>
 
       <td class="text-right">
         <%= link "Show", to: user_path(@conn, :show, user), class: "btn btn-default btn-xs" %>

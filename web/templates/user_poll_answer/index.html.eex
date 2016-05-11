@@ -1,0 +1,51 @@
+<h2>Listing user poll answers</h2>
+
+<div class="form-group">
+    <table class="table">
+      <tr>
+        <td>l. EVALUACION DE LA INDUCCION</td>
+
+      </tr>
+      <tr>
+        <td>Al finalizar la inducción, por favor dedique unos minutos a contestar
+          esta breve encuesta. La Información que nos proporcione será utilicada
+          para conocer el grado de satisfacción que obtuvo durante la inducción, con la finalidad de mejorar nuestro procesos.</td>
+      </tr>
+      <tr>
+        <td>
+        <b>Instrucciones: </b> Para contestar las preguntas, marque el número correspondiente del 1 al 5, donde 1 lo ubica en una posición de Total Desacuerdo y 5 en Total Acuerdo con la fase previamente expresada, escoja únicamente una respuesta por pregunta
+        </td>
+      </tr>
+    </table>
+</div>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>User</th>
+      <th>Poll</th>
+      <th>Poll topic</th>
+      <th>Answer</th>
+
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+<%= for user_poll_answer <- @user_poll_answers do %>
+    <tr>
+      <td><%= user_poll_answer.user_id %></td>
+      <td><%= user_poll_answer.poll_id %></td>
+      <td><%= user_poll_answer.poll_topic_id %></td>
+      <td><%= user_poll_answer.answer %></td>
+
+      <td class="text-right">
+        <%= link "Show", to: user_poll_answer_path(@conn, :show, user_poll_answer), class: "btn btn-default btn-xs" %>
+        <%= link "Edit", to: user_poll_answer_path(@conn, :edit, user_poll_answer), class: "btn btn-default btn-xs" %>
+        <%= link "Delete", to: user_poll_answer_path(@conn, :delete, user_poll_answer), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger btn-xs" %>
+      </td>
+    </tr>
+<% end %>
+  </tbody>
+</table>
+
+<%= link "New user poll answer", to: user_poll_answer_path(@conn, :new) %>

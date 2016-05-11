@@ -1,0 +1,28 @@
+<h2>Show user poll answer</h2>
+
+<ul>
+
+  <li>
+    <strong>User:</strong>
+    <%= @user_poll_answer.user_id %>
+  </li>
+
+  <li>
+    <strong>Poll:</strong>
+    <%= @user_poll_answer.poll_id %>
+  </li>
+
+  <li>
+    <strong>Poll topic:</strong>
+    <%= @user_poll_answer.poll_topic_id %>
+  </li>
+
+  <li>
+    <strong>Answer:</strong>
+    <%= @user_poll_answer.ansewr %>
+  </li>
+
+</ul>
+
+<%= link "Edit", to: user_poll_answer_path(@conn, :edit, @user_poll_answer) %>
+<%= link "Back", to: user_poll_answer_path(@conn, :index) %>
