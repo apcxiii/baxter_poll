@@ -6,11 +6,29 @@
   <% end %>
 
   <div class="form-group">
-    <%= label f, :answer, class: "control-label" %>
-    <%= text_input f, :answer, class: "form-control" %>
-    <%= error_tag f, :answer %>
+    <table class="table">
+      <tr>
+        <td><%= @user_poll_answer.poll_topic.order %></td>
+        <td><%= @user_poll_answer.poll_topic.text %> <%= @user_poll_answer.poll_topic.poll_topic_type.id %></td>
+      </tr>
+    </table>
   </div>
 
+  <%=if @user_poll_answer.poll_topic.poll_topic_type.id == 1  do %>
+    <div class="form-group">    
+      <%= label f, :answer, class: "control-label" %>
+      <%= select f, :answer,["1": 1,"2": 2, "3": 3, "4": 4, "5": 5], class: "form-control" %>
+      <%= error_tag f, :answer %>
+    </div>
+  <% end %>
+  <%=if @user_poll_answer.poll_topic.poll_topic_type.id == 2  do %>
+    <div class="form-group">    
+      <%= label f, :answer, class: "control-label" %>
+      <%= text_input f, :answer, class: "form-control" %>
+      <%= error_tag f, :answer %>
+    </div>
+  <% end %>  
+  
   <div class="form-group">
     <%= submit "Submit", class: "btn btn-primary" %>
   </div>

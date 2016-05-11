@@ -2,6 +2,7 @@ defmodule BaxterPoll.UserPollAnswerController do
   use BaxterPoll.Web, :controller
 
   alias BaxterPoll.UserPollAnswer
+  alias BaxterPoll.PollTopic
 
   plug :scrub_params, "user_poll_answer" when action in [:create, :update]
 
@@ -11,7 +12,8 @@ defmodule BaxterPoll.UserPollAnswerController do
   end
 
   def index_user(conn, %{"user_id" => user_id}) do
-    query = from u in UserPollAnswer, where: u.user_id == ^user_id
+    
+    query = from u in UserPollAnswer, where: u.user_id == ^user_id, preload: [:poll_topic], order_by: [asc: u.id]
     user_poll_answers = Repo.all(query)
     render(conn, "index.html", user_poll_answers: user_poll_answers)
   end
@@ -40,7 +42,8 @@ defmodule BaxterPoll.UserPollAnswerController do
   end
 
   def edit(conn, %{"id" => id}) do
-    user_poll_answer = Repo.get!(UserPollAnswer, id)
+    query = from a in UserPollAnswer, where: a.id == ^id, preload: [poll_topic: :poll_topic_type]
+    user_poll_answer = Repo.one query
     changeset = UserPollAnswer.changeset(user_poll_answer)
     render(conn, "edit.html", user_poll_answer: user_poll_answer, changeset: changeset)
   end
@@ -53,7 +56,7 @@ defmodule BaxterPoll.UserPollAnswerController do
       {:ok, user_poll_answer} ->
         conn
         |> put_flash(:info, "User poll answer updated successfully.")
-        |> redirect(to: user_poll_answer_path(conn, :show, user_poll_answer))
+        |> redirect(to: user_poll_answer_path(conn, :index_user, user_poll_answer.user_id))
       {:error, changeset} ->
         render(conn, "edit.html", user_poll_answer: user_poll_answer, changeset: changeset)
     end

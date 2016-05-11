@@ -1,4 +1,4 @@
-<h2>Listing user poll answers</h2>
+<h2>Encuesta</h2>
 
 <div class="form-group">
     <table class="table">
@@ -21,31 +21,24 @@
 
 <table class="table">
   <thead>
-    <tr>
-      <th>User</th>
-      <th>Poll</th>
-      <th>Poll topic</th>
-      <th>Answer</th>
-
-      <th></th>
+    <tr> 
+      <th>No.</th>     
+      <th>Pregunta</th>
+      <th>Respuesta</th>      
     </tr>
   </thead>
   <tbody>
 <%= for user_poll_answer <- @user_poll_answers do %>
     <tr>
-      <td><%= user_poll_answer.user_id %></td>
-      <td><%= user_poll_answer.poll_id %></td>
-      <td><%= user_poll_answer.poll_topic_id %></td>
+      <td><%= user_poll_answer.poll_topic.order %></td>
+      <td><%= user_poll_answer.poll_topic.text %></td>
       <td><%= user_poll_answer.answer %></td>
 
-      <td class="text-right">
-        <%= link "Show", to: user_poll_answer_path(@conn, :show, user_poll_answer), class: "btn btn-default btn-xs" %>
-        <%= link "Edit", to: user_poll_answer_path(@conn, :edit, user_poll_answer), class: "btn btn-default btn-xs" %>
-        <%= link "Delete", to: user_poll_answer_path(@conn, :delete, user_poll_answer), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger btn-xs" %>
+      <td class="text-right">        
+        <%= link "Contestar", to: user_poll_answer_path(@conn, :edit, user_poll_answer), class: "btn btn-default btn-xs" %>        
       </td>
     </tr>
 <% end %>
   </tbody>
 </table>
 
-<%= link "New user poll answer", to: user_poll_answer_path(@conn, :new) %>
