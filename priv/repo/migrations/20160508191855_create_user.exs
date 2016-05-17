@@ -9,8 +9,7 @@ defmodule BaxterPoll.Repo.Migrations.CreateUser do
       add :second_last_name, :string
       add :created_at, :datetime
       add :updated_at, :datetime
-    end
-     create unique_index(:users, [:email])
+    end     
   end
 
   def down do

@@ -2,7 +2,7 @@ defmodule BaxterPoll.UserPollAnswer do
   use BaxterPoll.Web, :model
 
   schema "user_poll_answers" do
-    field :answer, :string
+    field :answer, :string, default: " "
     field :user_id, :integer
     field :poll_id, :integer
     field :poll_topic_id, :integer

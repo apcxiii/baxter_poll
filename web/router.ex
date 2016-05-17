@@ -31,6 +31,9 @@ defmodule BaxterPoll.Router do
     resources "/user_questionaries", UserQuestionaryController
     resources "/user_poll_answers", UserPollAnswerController
     get "/user_poll_answers/index/:user_id", UserPollAnswerController, :index_user
+    get "/user/poll", UserController, :user_poll
+    put "/user/update_poll/:id", UserController, :update_user_poll
+    patch "/user/update_poll/:id", UserController, :update_user_poll
   end
 
   # Other scopes may use custom stacks.

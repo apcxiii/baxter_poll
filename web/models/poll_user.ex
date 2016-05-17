@@ -2,12 +2,13 @@ defmodule BaxterPoll.PollUser do
   use BaxterPoll.Web, :model
 
   schema "poll_users" do
+
     belongs_to :user, BaxterPoll.User, foreign_key: :user_id
     belongs_to :poll, BaxterPoll.Poll, foreign_key: :poll_id
     timestamps([{:inserted_at,:created_at}])
   end
 
-  @required_fields ~w()
+  @required_fields ~w(user_id poll_id)
   @optional_fields ~w()
 
   @doc """

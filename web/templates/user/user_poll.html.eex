@@ -1,0 +1,78 @@
+<h2>Responda por favor</h2>
+
+<%= form_for @changeset, user_path(@conn, :update_user_poll, @user), fn f -> %>
+  <%= if @changeset.action do %>
+    <div class="alert alert-danger">
+      <p>Oops, something went wrong! Please check the errors below.</p>
+    </div>
+  <% end %>
+
+  <div class="form-group">
+    <table class="table">
+      <tr>
+        <td>l. EVALUACION DE LA INDUCCION</td>
+
+      </tr>
+      <tr>
+        <td>Al finalizar la inducción, por favor dedique unos minutos a contestar
+          esta breve encuesta. La Información que nos proporcione será utilicada
+          para conocer el grado de satisfacción que obtuvo durante la inducción, con la finalidad de mejorar nuestro procesos.</td>
+      </tr>
+      <tr>
+        <td>
+        <b>Instrucciones: </b> Para contestar las preguntas, marque el número correspondiente del 1 al 5, donde 1 lo ubica en una posición de Total Desacuerdo y 5 en Total Acuerdo con la fase previamente expresada, escoja únicamente una respuesta por pregunta
+        </td>
+      </tr>
+    </table>
+</div>
+
+  <div class="form-group">  	
+    <%= label f, :correo, class: "control-label" %>
+    <%= email_input f, :email, class: "form-control" %>
+    <%= error_tag f, :email %>
+  </div>
+
+  <div class="form-group">
+    <%= label f, :nombre, class: "control-label" %>
+    <%= text_input f, :name, class: "form-control" %>
+    <%= error_tag f, :name %>
+  </div>
+
+  <div class="form-group">
+    <%= label f, :apellido_paterno, class: "control-label" %>
+    <%= text_input f, :first_last_name, class: "form-control" %>
+    <%= error_tag f, :first_last_name %>
+  </div>
+
+  <div class="form-group">
+    <%= label f, :apellido_materno, class: "control-label" %>
+    <%= text_input f, :second_last_name, class: "form-control" %>
+    <%= error_tag f, :second_last_name %>
+  </div>
+
+  <div class="form-group">
+    <%= label f, :area, class: "control-label" %>
+    <%= text_input f, :area, class: "form-control" %>
+    <%= error_tag f, :area %>
+  </div>
+  <div class="form-group">    
+    <%= hidden_input f, :process, value: "true" %>    
+  </div>
+  
+  
+	<%= inputs_for f, :user_poll_answers, fn a -> %>						
+  	<div class="form-group">
+			<%= Enum.fetch!(@topics,a.index).order%>)	<%= Enum.fetch!(@topics,a.index).text  %>	
+		</div>	
+		<div class="form-group">			
+			<%=if a.index > 7 do %>
+						<%= text_input a, :answer, class: "form-control" %>						
+			<% else %>					
+						<%= select a, :answer, ["1": 1,"2": 2, "3": 3, "4": 4, "5": 5], class: "form-control" %>
+			<% end %>
+		</div>		
+		<%end%>  		  
+  <div class="form-group">
+    <%= submit "Submit", class: "btn btn-primary" %>
+  </div>
+<% end %>
