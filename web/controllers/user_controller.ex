@@ -47,6 +47,52 @@ defmodule BaxterPoll.UserController do
     render(conn, "edit.html", user: user, changeset: changeset)
   end
 
+  def user_poll(conn, _params) do
+    Logger.info "edit_not_process function"
+    query_poll_topics = from t in PollTopic, preload: [:poll_topic_type], order_by: [asc: t.order]
+    query = from u in User, where: u.process == false, preload: [user_poll_answers: :poll_topic], limit: 1 
+    user = Repo.one!(query)
+    topics = Repo.all(query_poll_topics)    
+    changeset = User.changeset(user)
+    render(conn, "user_poll.html", user: user, changeset: changeset, topics: topics)
+  end
+
+  def update_user_poll(conn, %{"id" => id, "user" => user_params}) do
+    
+    query_poll_topics = from t in PollTopic, preload: [:poll_topic_type], order_by: [asc: t.order]
+    topics = Repo.all(query_poll_topics)    
+    user = Repo.get!(User, id)
+    
+    Logger.info "user_params = #{inspect user_params}"
+    changeset = User.changeset(user, %{name: Map.get(user_params, "name", nil),
+                                        email: Map.get(user_params, "email", nil),
+                                        first_last_name: Map.get(user_params, "first_last_name", nil),
+                                        second_last_name: Map.get(user_params, "second_last_name", nil),
+                                        area: Map.get(user_params, "area", nil),
+                                        process: true,
+                                        id: id})
+    Logger.info "changeset.user = #{inspect changeset}"
+    answers = Map.get(user_params, "user_poll_answers", nil) 
+    Enum.each(0..9, fn(index) -> 
+      answer = Map.get(answers,"#{inspect index}", nil)
+      query_answer = from ua in UserPollAnswer, where: ua.user_id == ^id and ua.poll_topic_id == ^(index + 1)
+
+       changeset = UserPollAnswer.changeset(Repo.one!(query_answer), %{user_id: id,
+         poll_id: 1, answer: Map.get(answer, "answer", nil), poll_topic_id: index + 1})
+       Logger.info "update_user_poll.changeset = #{inspect changeset}"
+       update_answer(changeset)
+    end)
+
+    case Repo.update(changeset) do
+      {:ok, user} ->
+        conn
+        |> put_flash(:info, "User updated successfully.")
+        |> redirect(to: user_path(conn, :show, user))
+      {:error, changeset} ->
+        render(conn, "user_poll.html", user: user, changeset: changeset,topics: topics)
+    end
+  end
+
   def update(conn, %{"id" => id, "user" => user_params}) do
     user = Repo.get!(User, id)
     changeset = User.changeset(user, user_params)
@@ -95,7 +141,16 @@ defmodule BaxterPoll.UserController do
       {:error, changeset} ->
         Logger.error "ERROR ====> #{inspect changeset}"
     end
-
     end)
+  end
+
+  defp update_answer(changeset) do
+
+    case Repo.update(changeset) do
+       {:ok, ans} ->
+         Logger.info "ans = #{inspect ans}"
+       {:error, changeset} ->
+         Logger.error "changeset = #{inspect changeset}"
+    end
   end
 end

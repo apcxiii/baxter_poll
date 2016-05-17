@@ -8,6 +8,7 @@ defmodule BaxterPoll.User do
     field :second_last_name, :string
     field :name, :string
     field :area, :string
+    field :process, :boolean
     has_many :poll_users, BaxterPoll.PollUser
     has_many :polls, through: [:poll_users, :poll]
     has_many :user_poll_answers, BaxterPoll.UserPollAnswer
@@ -15,7 +16,7 @@ defmodule BaxterPoll.User do
   end
 
   @required_fields ~w(email name first_last_name second_last_name area)
-  @optional_fields ~w()
+  @optional_fields ~w(process)
 
   @doc """
   Creates a changeset based on the `model` and `params`.
