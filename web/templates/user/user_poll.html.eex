@@ -68,7 +68,26 @@
 			<%=if a.index > 7 do %>
 						<%= text_input a, :answer, class: "form-control" %>						
 			<% else %>					
-						<%= select a, :answer, ["1": 1,"2": 2, "3": 3, "4": 4, "5": 5], class: "form-control" %>
+      <table class="table">
+        <tr>
+          <td>
+            <%= radio_button a, :answer, "1", class: "form-control" %> 1
+          </td>
+          <td>
+            <%= radio_button a, :answer, "2", class: "form-control" %> 2
+          </td>
+          <td>
+            <%= radio_button a, :answer, "3", class: "form-control" %> 3
+          </td>
+          <td>
+            <%= radio_button a, :answer, "4", class: "form-control" %> 4
+          </td>
+          <td>
+            <%= radio_button a, :answer, "5", class: "form-control" %> 5
+          </td>
+        </tr>
+      </table>
+  				
 			<% end %>
 		</div>		
 		<%end%>  		  

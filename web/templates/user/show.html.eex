@@ -8,25 +8,36 @@
   </li>
 
   <li>
-    <strong>Area:</strong>
+    <strong>Área:</strong>
     <%= @user.area %>
   </li>
 
   <li>
-    <strong>Name:</strong>
+    <strong>Nombre:</strong>
     <%= @user.name %>
   </li>
 
   <li>
-    <strong>First last name:</strong>
+    <strong>Apellido Paterno:</strong>
     <%= @user.first_last_name %>
   </li>
 
   <li>
-    <strong>Second last name:</strong>
+    <strong>Apellido Materno:</strong>
     <%= @user.second_last_name %>
   </li>
 
 </ul>
+
+<%= for answer <- @user.user_poll_answers do %>
+  <li>
+
+    <%= answer.poll_topic.order %> <%= answer.poll_topic.text %>   RESPUESTA: <strong><%= answer.answer %></strong>
+
+  </li>
+
+<% end %>
+
+<%= link "Back", to: user_path(@conn, :index) %>
 
 

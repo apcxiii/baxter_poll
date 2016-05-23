@@ -38,7 +38,9 @@ defmodule BaxterPoll.UserController do
   end
 
   def show(conn, %{"id" => id}) do
-    user = Repo.get!(User, id)
+    query_poll_topics = from t in PollTopic, preload: [:poll_topic_type], order_by: [asc: t.order]
+    query_user = from u in User, where: u.id == ^id, preload: [user_poll_answers: [:poll, :poll_topic]]
+    user = Repo.one!(query_user)
     render(conn, "show.html", user: user)
   end
 
