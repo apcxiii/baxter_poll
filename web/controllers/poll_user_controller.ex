@@ -2,16 +2,11 @@ defmodule BaxterPoll.PollUserController do
   use BaxterPoll.Web, :controller
 
   alias BaxterPoll.PollUser
-  alias BaxterPoll.User
-
-  require Logger
 
   plug :scrub_params, "poll_user" when action in [:create, :update]
 
-  def index(conn, _params) do
-    Logger.info "index function"
-    query = from u in User, where: u.process == true
-    poll_users = Repo.all(query)
+  def index(conn, _params) do    
+    poll_users = Repo.all(PollUser)
     render(conn, "index.html", poll_users: poll_users)
   end
 
