@@ -2,6 +2,7 @@ defmodule BaxterPoll.PollUserController do
   use BaxterPoll.Web, :controller
 
   alias BaxterPoll.PollUser
+  alias BaxterPoll.User
 
   plug :scrub_params, "poll_user" when action in [:create, :update]
 
