@@ -7,7 +7,7 @@ defmodule BaxterPoll.PollUserController do
   plug :scrub_params, "poll_user" when action in [:create, :update]
 
   def index(conn, _params) do
-    query = from u in User, where: u.process = true
+    query = from u in User, where: u.process == true
         poll_users = Repo.all(query)
     render(conn, "index.html", poll_users: poll_users)
   end
