@@ -8,7 +8,7 @@ defmodule BaxterPoll.PollUserController do
 
   def index(conn, _params) do
     query = from u in User, where: u.process == true
-        poll_users = Repo.all(query)
+    poll_users = Repo.all(query)
     render(conn, "index.html", poll_users: poll_users)
   end
 
