@@ -1,4 +1,4 @@
-<h2>Responda por favor</h2>
+<h2>Responda por favor.</h2>
 
 <%= form_for @changeset, user_path(@conn, :update_user_poll, @user), fn f -> %>
   <%= if @changeset.action do %>
