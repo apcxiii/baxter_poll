@@ -1,0 +1,92 @@
+
+
+<%= form_for @changeset, user_path(@conn, :update_user_poll_recruitment, @user), fn f -> %>
+  <%= if @changeset.action do %>
+    <div class="alert alert-danger">
+      <p>Oops, something went wrong! Please check the errors below.</p>
+    </div>
+  <% end %>
+
+  <div class="form-group">
+    <table class="table">
+      <tr>
+        <td><h2>Encuesta de Reclutamiento.</h2></td>
+
+      </tr>
+      <tr>
+        <td>El objetivo de esta encuesta es conocer la opinión y sugerencias del curso de inducción de la compañía. Con la finalidad de poder ubicar puntos de mejora y realizar planes de acción que apoyen a la integración del candidato de una forma efectiva. Este proceso se debe de llevar al finalizar el programa. Te pedimos contestar la encuesta y poder completarla para nuestra revisión</td>
+      </tr>
+      <tr>
+        <td>
+        <b>Por favor selecciona la casilla que mejor describa cada enunciado respecto al servicio de reclutamiento brindado por el área de RH. Donde "4" indica totalmente de acuerdo y "1" totalmente en desacuerdo.
+        </td>
+      </tr>
+    </table>
+</div>
+
+  <div class="form-group">  	
+    <%= label f, :correo, class: "control-label" %>
+    <%= email_input f, :email, class: "form-control" %>
+    <%= error_tag f, :email %>
+  </div>
+
+  <div class="form-group">
+    <%= label f, :nombre_del_solicitante, class: "control-label" %>
+    <%= text_input f, :name, class: "form-control" %>
+    <%= error_tag f, :name %>
+  </div>
+
+  <div class="form-group">
+    <%= label f, :nombre_del_que_brindo_el_servicio, class: "control-label" %>
+    <%= text_input f, :recruiter, class: "form-control" %>
+    <%= error_tag f, :recruiter %>
+  </div>
+
+  <div class="form-group">
+    <%= label f, :fecha, class: "control-label" %>
+    <%= date_select f, :date_recruitment, class: "form-control" %>
+    <%= error_tag f, :date_recruitment %>
+  </div>
+
+  <div class="form-group">
+    <%= label f, :puesto, class: "control-label" %>
+    <%= text_input f, :position, class: "form-control" %>
+    <%= error_tag f, :position %>
+  </div>
+  <div class="form-group">    
+    <%= hidden_input f, :process, value: "true" %>    
+  </div>
+  
+  
+	<%= inputs_for f, :user_poll_answers, fn a -> %>						
+  	<div class="form-group">
+			<%= Enum.fetch!(@topics,a.index).order%>)	<%= Enum.fetch!(@topics,a.index).text  %>	
+		</div>	
+		<div class="form-group">			
+			<%=if a.index > 8 do %>
+						<%= text_input a, :answer, class: "form-control" %>						
+			<% else %>					
+      <table class="table">
+        <tr>
+          <td>
+            <%= radio_button a, :answer, "1", class: "form-control" %> 1
+          </td>
+          <td>
+            <%= radio_button a, :answer, "2", class: "form-control" %> 2
+          </td>
+          <td>
+            <%= radio_button a, :answer, "3", class: "form-control" %> 3
+          </td>
+          <td>
+            <%= radio_button a, :answer, "4", class: "form-control" %> 4
+          </td>
+        </tr>
+      </table>
+  				
+			<% end %>
+		</div>		
+		<%end%>  		  
+  <div class="form-group">
+    <%= submit "Enviar", class: "btn btn-primary" %>
+  </div>
+<% end %>

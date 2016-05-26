@@ -44,41 +44,69 @@ defmodule BaxterPoll.UserController do
     render(conn, "show.html", user: user)
   end
 
+  def show_induction(conn, %{"id" => id}) do
+    query_poll_topics = from t in PollTopic, where: t.poll_id == ^2,preload: [:poll_topic_type], order_by: [asc: t.order]
+    query_user_poll_answers = from a in UserPollAnswer, where: a.poll_id == ^1, preload: [:poll_topic]
+    query_user = from u in User, where: u.id == ^id, preload: [user_poll_answers: ^query_user_poll_answers], limit: 1 
+    user = Repo.one!(query_user)
+    render(conn, "show_induction.html", user: user)
+  end
+
+  def show_recruitment(conn, %{"id" => id}) do
+    query_poll_topics = from t in PollTopic, where: t.poll_id == ^2,preload: [:poll_topic_type], order_by: [asc: t.order]
+    query_user_poll_answers = from a in UserPollAnswer, where: a.poll_id == ^2, preload: [:poll_topic]
+    query_user = from u in User, where: u.id == ^id, preload: [user_poll_answers: ^query_user_poll_answers], limit: 1 
+    user = Repo.one!(query_user)
+    render(conn, "show_recruitment.html", user: user)
+  end
+
   def edit(conn, %{"id" => id}) do    
     user = Repo.get!(User, id)
     changeset = User.changeset(user)
     render(conn, "edit.html", user: user, changeset: changeset)
   end
 
-  def user_poll(conn, _params) do
+  def user_poll_induction(conn, _params) do
     Logger.info "edit_not_process function"
-    query_poll_topics = from t in PollTopic, preload: [:poll_topic_type], order_by: [asc: t.order]
-    query = from u in User, where: u.process == false, preload: [user_poll_answers: :poll_topic], limit: 1 
+    query_poll_topics = from t in PollTopic, where: t.poll_id == ^1, preload: [:poll_topic_type], order_by: [asc: t.order]
+    query_user_poll_answers = from a in UserPollAnswer, where: a.poll_id == ^1, preload: [:poll_topic]
+    query = from u in User, where: u.process == false, preload: [user_poll_answers: ^query_user_poll_answers], limit: 1 
     user = Repo.one!(query)
     topics = Repo.all(query_poll_topics)    
     changeset = User.changeset(user)
-    render(conn, "user_poll.html", user: user, changeset: changeset, topics: topics)
+    #Logger.info "topic =====> #{inspect topics}"
+    render(conn, "user_poll_induction.html", user: user, changeset: changeset, topics: topics)
   end
 
-  def update_user_poll(conn, %{"id" => id, "user" => user_params}) do
-    
-    query_poll_topics = from t in PollTopic, preload: [:poll_topic_type], order_by: [asc: t.order]
+  def user_poll_recruitment(conn, _params) do
+    Logger.info "edit_not_process function"
+    query_poll_topics = from t in PollTopic, where: t.poll_id == ^2,preload: [:poll_topic_type], order_by: [asc: t.order]
+    query_user_poll_answers = from a in UserPollAnswer, where: a.poll_id == ^2, preload: [:poll_topic]
+    query = from u in User, where: u.process == false, preload: [user_poll_answers: ^query_user_poll_answers], limit: 1 
+    user = Repo.one!(query)
+    topics = Repo.all(query_poll_topics)    
+    changeset = User.changeset(user)
+    render(conn, "user_poll_recruitment.html", user: user, changeset: changeset, topics: topics)
+  end
+
+  def update_user_poll_induction(conn, %{"id" => id, "user" => user_params}) do    
+    query_poll_topics = from t in PollTopic, where: t.poll_id == ^1, preload: [:poll_topic_type], order_by: [asc: t.order]
     topics = Repo.all(query_poll_topics)    
     user = Repo.get!(User, id)
     
     Logger.info "user_params = #{inspect user_params}"
-    changeset = User.changeset(user, %{name: Map.get(user_params, "name", nil),
+    changeset_user = User.changeset(user, %{name: Map.get(user_params, "name", nil),
                                         email: Map.get(user_params, "email", nil),
                                         first_last_name: Map.get(user_params, "first_last_name", nil),
                                         second_last_name: Map.get(user_params, "second_last_name", nil),
                                         area: Map.get(user_params, "area", nil),
                                         process: true,
                                         id: id})
-    Logger.info "changeset.user = #{inspect changeset}"
+    Logger.info "changeset.user = #{inspect changeset_user}"
     answers = Map.get(user_params, "user_poll_answers", nil) 
-    Enum.each(0..9, fn(index) -> 
+    Enum.each(0..10, fn(index) -> 
       answer = Map.get(answers,"#{inspect index}", nil)
-      query_answer = from ua in UserPollAnswer, where: ua.user_id == ^id and ua.poll_topic_id == ^(index + 1)
+      query_answer = from ua in UserPollAnswer, where: ua.user_id == ^id and ua.poll_id == ^1 and ua.poll_topic_id == ^(index + 1)
 
        changeset = UserPollAnswer.changeset(Repo.one!(query_answer), %{user_id: id,
          poll_id: 1, answer: Map.get(answer, "answer", nil), poll_topic_id: index + 1})
@@ -86,13 +114,58 @@ defmodule BaxterPoll.UserController do
        update_answer(changeset)
     end)
 
-    case Repo.update(changeset) do
+    case Repo.update(changeset_user) do
       {:ok, user} ->
         conn
         |> put_flash(:info, "User updated successfully.")
-        |> redirect(to: user_path(conn, :show, user))
+        |> redirect(to: user_path(conn, :show_induction, user))
       {:error, changeset} ->
-        render(conn, "user_poll.html", user: user, changeset: changeset,topics: topics)
+        render(conn, "user_poll_induction.html", user: user, changeset: changeset,topics: topics)
+    end
+  end
+
+  def update_user_poll_recruitment(conn, %{"id" => id, "user" => user_params}) do
+    
+    query_poll_topics = from t in PollTopic,where: t.poll_id == ^2, preload: [:poll_topic_type], order_by: [asc: t.order]
+    topics = Repo.all(query_poll_topics)    
+    user = Repo.get!(User, id)
+    date_recruitment_string = Map.get(user_params, "date_recruitment", nil)
+
+    day = Map.get(date_recruitment_string, "day", nil) |> String.to_integer
+    month = Map.get(date_recruitment_string, "month", nil) |> String.to_integer 
+    year = Map.get(date_recruitment_string, "year", nil) |> String.to_integer
+    date = Timex.datetime({{year, month, day},{0,0,0}})
+
+    Logger.info "day = #{inspect day}"
+    Logger.info "new.date = #{inspect date}"
+    changeset_user = User.changeset(user, %{name: Map.get(user_params, "name", nil),
+                                        email: Map.get(user_params, "email", nil),                                        
+                                        area: Map.get(user_params, "area", nil),
+                                        position: Map.get(user_params, "position", nil),
+                                        recruiter: Map.get(user_params, "recruiter", nil),
+                                        date_recruitment: date,
+                                        process: true,
+                                        id: id})
+    Logger.info "changeset.user = #{inspect changeset_user}"
+    answers = Map.get(user_params, "user_poll_answers", nil) 
+    Enum.each(0..10, fn(index) -> 
+      answer = Map.get(answers,"#{inspect index}", nil)
+      query_answer = from ua in UserPollAnswer, where: ua.user_id == ^id and ua.poll_id == ^2 and ua.poll_topic_id == ^(index + 1)
+
+       changeset = UserPollAnswer.changeset(Repo.one!(query_answer), %{user_id: id,
+         poll_id: 2, answer: Map.get(answer, "answer", nil), poll_topic_id: index + 1})
+       Logger.info "update_user_poll.changeset = #{inspect changeset}"
+       update_answer(changeset)
+    end)
+
+    case Repo.update(changeset_user) do
+      {:ok, user} ->
+        conn
+        |> put_flash(:info, "User updated successfully.")
+        |> redirect(to: user_path(conn, :show_recruitment, user))
+      {:error, changeset} ->
+        Logger.error "change after update user ====> #{inspect changeset}"
+        render(conn, "user_poll_recruitment.html", user: user, changeset: changeset, topics: topics)
     end
   end
 

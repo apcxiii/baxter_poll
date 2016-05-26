@@ -6,7 +6,10 @@ defmodule BaxterPoll.Repo.Migrations.CreateUser do
       add :email, :string
       add :encrypted_password, :string
       add :first_last_name, :string
+      add :recruiter, :string
+      add :position, :string
       add :second_last_name, :string
+      add :date_recruitment, :datetime
       add :created_at, :datetime
       add :updated_at, :datetime
     end     

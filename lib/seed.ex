@@ -13,14 +13,15 @@ defmodule Mix.Tasks.BaxterPoll.Seed do
     # Any data for development goes here
     # i.e. Repo.insert!(%MyApp.User{}, %{ first_name: "Alex, last_name: "Garibay" })
     create_poll_topic_types 
-    create_poll 
-    create_users(10)	  
+    create_poll
+    create_poll_recruitment
+    create_users(10)
   end
 
   def seed(:prod) do
     create_poll_topic_types 
     create_poll
-    create_poll_reclutamiento 
+    create_poll_recruitment 
     create_users(1000)
   end
 
@@ -38,14 +39,14 @@ defmodule Mix.Tasks.BaxterPoll.Seed do
     end
   end
 
-  defp create_poll_reclutamiento do
+  defp create_poll_recruitment do
     changeset = BaxterPoll.Poll.changeset(%BaxterPoll.Poll{}, %{name: "Encuesta de Reclutamiento", description: "Encuesta de inducción", active: true})
     poll = Repo.insert(changeset)
 
     case poll do
        {:ok, poll_model}->
         Logger.info "poll = #{inspect poll_model}"
-        create_topics(poll_model)
+        create_topics_recruitment(poll_model)
        {:error, _changeset}->
         Logger.error "changeset = #{inspect changeset}"
     end
@@ -66,7 +67,7 @@ defmodule Mix.Tasks.BaxterPoll.Seed do
        order: 2, active: true, poll_id: poll.id, poll_topic_type_id: 1}))
 
     Repo.insert!(BaxterPoll.PollTopic.changeset(%BaxterPoll.PollTopic{},
-     %{text: "La estructura del programa fue adecuada para entender el funcionamiento de cada una de las unidades del negocio.",
+     %{text: "La estructura del programa fue adecuada para entender el funcionamiento de cada una de las unidades de negocio",
        order: 3, active: true, poll_id: poll.id, poll_topic_type_id: 1}))
 
     Repo.insert!(BaxterPoll.PollTopic.changeset(%BaxterPoll.PollTopic{},
@@ -74,7 +75,7 @@ defmodule Mix.Tasks.BaxterPoll.Seed do
        order: 4, active: true, poll_id: poll.id, poll_topic_type_id: 1}))
 
     Repo.insert!(BaxterPoll.PollTopic.changeset(%BaxterPoll.PollTopic{},
-     %{text: "Considerando la información recibida, pude identificar mi rol dentro de la operación.",
+     %{text: "Considerando la inforamción recibida, pude identificar mi rol dentro de la operación.",
        order: 5, active: true, poll_id: poll.id, poll_topic_type_id: 1}))
 
     Repo.insert!(BaxterPoll.PollTopic.changeset(%BaxterPoll.PollTopic{},
@@ -86,16 +87,68 @@ defmodule Mix.Tasks.BaxterPoll.Seed do
        order: 7, active: true, poll_id: poll.id, poll_topic_type_id: 1}))
 
     Repo.insert!(BaxterPoll.PollTopic.changeset(%BaxterPoll.PollTopic{},
-     %{text: "La bienvenida que recibí en la empresa me generó motivación y cumplió mis expectativas.",
+     %{text: "La inducción al negocio por parte de los facilitadores me transmitió el enfoque de Baxter hacia el logro de la excelencia operacional.",
        order: 8, active: true, poll_id: poll.id, poll_topic_type_id: 1}))
 
     Repo.insert!(BaxterPoll.PollTopic.changeset(%BaxterPoll.PollTopic{},
-     %{text: "¿Cuáles fueron los temas que causaron mayor impacto durante tu proceso de inducción?",
-       order: 9, active: true, poll_id: poll.id, poll_topic_type_id: 2}))
+     %{text: "La bienvenida que recibí en la empresa me generó motivación y cumplió con mis expectativas.",
+       order: 9, active: true, poll_id: poll.id, poll_topic_type_id: 1}))
 
     Repo.insert!(BaxterPoll.PollTopic.changeset(%BaxterPoll.PollTopic{},
-     %{text: "¿Qué aspectos consideras que podrían enriquecer el proceso de inducción?",
+     %{text: "¿Cuáles fueron los temas que causaron mayor impacto durante tu proceso de inducción?",
        order: 10, active: true, poll_id: poll.id, poll_topic_type_id: 2}))
+
+    Repo.insert!(BaxterPoll.PollTopic.changeset(%BaxterPoll.PollTopic{},
+     %{text: "¿Qué aspectos consideras que podrían enriquecer el proceso de ind?",
+       order: 11, active: true, poll_id: poll.id, poll_topic_type_id: 2}))
+
+    
+  end
+
+  defp create_topics_recruitment(poll) do
+    Repo.insert!(BaxterPoll.PollTopic.changeset(%BaxterPoll.PollTopic{},
+     %{text: "Una vez requisitada la posición, se me dio a conocer de manera clara y concreta el proceso que se seguiría así como los puntos clave para el reclutamiento",
+       order: 1, active: true, poll_id: poll.id, poll_topic_type_id: 1}))
+
+    Repo.insert!(BaxterPoll.PollTopic.changeset(%BaxterPoll.PollTopic{},
+     %{text: "El tiempo de respuesta para la presentación de candidatos fue menor a 10 días hábiles.",
+       order: 2, active: true, poll_id: poll.id, poll_topic_type_id: 1}))
+
+    Repo.insert!(BaxterPoll.PollTopic.changeset(%BaxterPoll.PollTopic{},
+     %{text: "Los candidatos recibidos cubrieron el perfil que requiere la unidad de negocio.",
+       order: 3, active: true, poll_id: poll.id, poll_topic_type_id: 1}))
+
+    Repo.insert!(BaxterPoll.PollTopic.changeset(%BaxterPoll.PollTopic{},
+     %{text: "Pude externar mis inquietudes y dudas durante el proceso de reclutamiento y fueron aclaradas inmediatamente.",
+       order: 4, active: true, poll_id: poll.id, poll_topic_type_id: 1}))
+
+    Repo.insert!(BaxterPoll.PollTopic.changeset(%BaxterPoll.PollTopic{},
+     %{text: "Se me mantuvo al tanto del desarrollo y avance de los candidatos durante el proceso.",
+       order: 5, active: true, poll_id: poll.id, poll_topic_type_id: 1}))
+
+    Repo.insert!(BaxterPoll.PollTopic.changeset(%BaxterPoll.PollTopic{},
+     %{text: "Los comentarios brindados; tanto de RH como de mi departamento, durante el proceso de reclutamiento ayudaron a seleccionar el mejor talento de acuerdo a las necesidades que requiere el área.",
+       order: 6, active: true, poll_id: poll.id, poll_topic_type_id: 1}))
+
+    Repo.insert!(BaxterPoll.PollTopic.changeset(%BaxterPoll.PollTopic{},
+     %{text: "Las necesidades del negocio respecto al servicio de reclutamiento fueron cubiertas.",
+       order: 7, active: true, poll_id: poll.id, poll_topic_type_id: 1}))
+
+    Repo.insert!(BaxterPoll.PollTopic.changeset(%BaxterPoll.PollTopic{},
+     %{text: "¿De qué manera repercute/impacta el servicio de reclutamiento para el logro de objetivos de la unidad de negocio?",
+       order: 8, active: true, poll_id: poll.id, poll_topic_type_id: 1}))
+
+    Repo.insert!(BaxterPoll.PollTopic.changeset(%BaxterPoll.PollTopic{},
+     %{text: "Sugerencias a fin de brindar un mejor servicio",
+       order: 9, active: true, poll_id: poll.id, poll_topic_type_id: 1}))
+
+    Repo.insert!(BaxterPoll.PollTopic.changeset(%BaxterPoll.PollTopic{},
+     %{text: "Menciona alguna propuesta que consideres que puede agilizar el proceso de reclutamiento",
+       order: 10, active: true, poll_id: poll.id, poll_topic_type_id: 1}))
+
+    Repo.insert!(BaxterPoll.PollTopic.changeset(%BaxterPoll.PollTopic{},
+     %{text: "Observaciones y comentarios adicionales.",
+       order: 11, active: true, poll_id: poll.id, poll_topic_type_id: 2}))
   end 
 
   defp create_users(n) do
@@ -137,6 +190,7 @@ defmodule Mix.Tasks.BaxterPoll.Seed do
     Repo.insert!(BaxterPoll.UserPollAnswer.changeset(%BaxterPoll.UserPollAnswer{}, %{user_id: user.id, poll_id: 1, poll_topic_id: 8}))
     Repo.insert!(BaxterPoll.UserPollAnswer.changeset(%BaxterPoll.UserPollAnswer{}, %{user_id: user.id, poll_id: 1, poll_topic_id: 9}))
     Repo.insert!(BaxterPoll.UserPollAnswer.changeset(%BaxterPoll.UserPollAnswer{}, %{user_id: user.id, poll_id: 1, poll_topic_id: 10}))
+    Repo.insert!(BaxterPoll.UserPollAnswer.changeset(%BaxterPoll.UserPollAnswer{}, %{user_id: user.id, poll_id: 1, poll_topic_id: 11}))
 
     Repo.insert!(BaxterPoll.UserPollAnswer.changeset(%BaxterPoll.UserPollAnswer{}, %{user_id: user.id, poll_id: 2, poll_topic_id: 1}))
     Repo.insert!(BaxterPoll.UserPollAnswer.changeset(%BaxterPoll.UserPollAnswer{}, %{user_id: user.id, poll_id: 2, poll_topic_id: 2}))
@@ -147,6 +201,7 @@ defmodule Mix.Tasks.BaxterPoll.Seed do
     Repo.insert!(BaxterPoll.UserPollAnswer.changeset(%BaxterPoll.UserPollAnswer{}, %{user_id: user.id, poll_id: 2, poll_topic_id: 7}))
     Repo.insert!(BaxterPoll.UserPollAnswer.changeset(%BaxterPoll.UserPollAnswer{}, %{user_id: user.id, poll_id: 2, poll_topic_id: 8}))
     Repo.insert!(BaxterPoll.UserPollAnswer.changeset(%BaxterPoll.UserPollAnswer{}, %{user_id: user.id, poll_id: 2, poll_topic_id: 9}))
-    Repo.insert!(BaxterPoll.UserPollAnswer.changeset(%BaxterPoll.UserPollAnswer{}, %{user_id: user.id, poll_id: 2, poll_topic_id: 10}))        
+    Repo.insert!(BaxterPoll.UserPollAnswer.changeset(%BaxterPoll.UserPollAnswer{}, %{user_id: user.id, poll_id: 2, poll_topic_id: 10}))
+    Repo.insert!(BaxterPoll.UserPollAnswer.changeset(%BaxterPoll.UserPollAnswer{}, %{user_id: user.id, poll_id: 2, poll_topic_id: 11}))                
   end
 end  
