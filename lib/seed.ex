@@ -19,13 +19,27 @@ defmodule Mix.Tasks.BaxterPoll.Seed do
 
   def seed(:prod) do
     create_poll_topic_types 
-    create_poll 
+    create_poll
+    create_poll_reclutamiento 
     create_users(1000)
   end
 
 
   defp create_poll do
-    changeset = BaxterPoll.Poll.changeset(%BaxterPoll.Poll{}, %{name: "Encuesta 1", description: "Encuesta de inducción", active: true})
+    changeset = BaxterPoll.Poll.changeset(%BaxterPoll.Poll{}, %{name: "Encuesta de la calidad de Inducción", description: "Encuesta de inducción", active: true})
+    poll = Repo.insert(changeset)
+
+    case poll do
+       {:ok, poll_model}->
+        Logger.info "poll = #{inspect poll_model}"
+        create_topics(poll_model)
+       {:error, _changeset}->
+        Logger.error "changeset = #{inspect changeset}"
+    end
+  end
+
+  defp create_poll_reclutamiento do
+    changeset = BaxterPoll.Poll.changeset(%BaxterPoll.Poll{}, %{name: "Encuesta de Reclutamiento", description: "Encuesta de inducción", active: true})
     poll = Repo.insert(changeset)
 
     case poll do
@@ -122,6 +136,17 @@ defmodule Mix.Tasks.BaxterPoll.Seed do
     Repo.insert!(BaxterPoll.UserPollAnswer.changeset(%BaxterPoll.UserPollAnswer{}, %{user_id: user.id, poll_id: 1, poll_topic_id: 7}))
     Repo.insert!(BaxterPoll.UserPollAnswer.changeset(%BaxterPoll.UserPollAnswer{}, %{user_id: user.id, poll_id: 1, poll_topic_id: 8}))
     Repo.insert!(BaxterPoll.UserPollAnswer.changeset(%BaxterPoll.UserPollAnswer{}, %{user_id: user.id, poll_id: 1, poll_topic_id: 9}))
-    Repo.insert!(BaxterPoll.UserPollAnswer.changeset(%BaxterPoll.UserPollAnswer{}, %{user_id: user.id, poll_id: 1, poll_topic_id: 10}))    
+    Repo.insert!(BaxterPoll.UserPollAnswer.changeset(%BaxterPoll.UserPollAnswer{}, %{user_id: user.id, poll_id: 1, poll_topic_id: 10}))
+
+    Repo.insert!(BaxterPoll.UserPollAnswer.changeset(%BaxterPoll.UserPollAnswer{}, %{user_id: user.id, poll_id: 2, poll_topic_id: 1}))
+    Repo.insert!(BaxterPoll.UserPollAnswer.changeset(%BaxterPoll.UserPollAnswer{}, %{user_id: user.id, poll_id: 2, poll_topic_id: 2}))
+    Repo.insert!(BaxterPoll.UserPollAnswer.changeset(%BaxterPoll.UserPollAnswer{}, %{user_id: user.id, poll_id: 2, poll_topic_id: 3}))
+    Repo.insert!(BaxterPoll.UserPollAnswer.changeset(%BaxterPoll.UserPollAnswer{}, %{user_id: user.id, poll_id: 2, poll_topic_id: 4}))
+    Repo.insert!(BaxterPoll.UserPollAnswer.changeset(%BaxterPoll.UserPollAnswer{}, %{user_id: user.id, poll_id: 2, poll_topic_id: 5}))
+    Repo.insert!(BaxterPoll.UserPollAnswer.changeset(%BaxterPoll.UserPollAnswer{}, %{user_id: user.id, poll_id: 2, poll_topic_id: 6}))
+    Repo.insert!(BaxterPoll.UserPollAnswer.changeset(%BaxterPoll.UserPollAnswer{}, %{user_id: user.id, poll_id: 2, poll_topic_id: 7}))
+    Repo.insert!(BaxterPoll.UserPollAnswer.changeset(%BaxterPoll.UserPollAnswer{}, %{user_id: user.id, poll_id: 2, poll_topic_id: 8}))
+    Repo.insert!(BaxterPoll.UserPollAnswer.changeset(%BaxterPoll.UserPollAnswer{}, %{user_id: user.id, poll_id: 2, poll_topic_id: 9}))
+    Repo.insert!(BaxterPoll.UserPollAnswer.changeset(%BaxterPoll.UserPollAnswer{}, %{user_id: user.id, poll_id: 2, poll_topic_id: 10}))        
   end
 end  
