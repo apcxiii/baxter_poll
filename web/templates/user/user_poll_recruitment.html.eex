@@ -24,35 +24,55 @@
     </table>
 </div>
 
-  <div class="form-group">  	
-    <%= label f, :correo, class: "control-label" %>
-    <%= email_input f, :email, class: "form-control" %>
-    <%= error_tag f, :email %>
-  </div>
+  <table>
+    <tr>
+      <td>
+        <div class="form-group">
+          <%= label f, :nombre_del_solicitante, class: "control-label" %>
+          <%= text_input f, :name, class: "form-control" %>
+          <%= error_tag f, :name %>
+        </div>
+      </td>
+      <td>
+        <div class="form-group">    
+          <%= label f, :departamento_que_solicito_el_servicio, class: "control-label" %>
+          <%= email_input f, :area, class: "form-control" %>
+          <%= error_tag f, :email %>
+        </div>
+      </td>
+      <td>
+        <div class="form-group">
+          <%= label f, :fecha, class: "control-label" %>
+          <%= date_select f, :date_recruitment, class: "form-control" %>
+          <%= error_tag f, :date_recruitment %>
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <div class="form-group">
+          <%= label f, :puesto, class: "control-label" %>
+          <%= text_input f, :position, class: "form-control" %>
+          <%= error_tag f, :position %>
+        </div>
+      </td>
+      <td>
+        <div class="form-group">
+          <%= label f, :nombre_de_quien_brindo_el_servicio, class: "control-label" %>
+          <%= text_input f, :recruiter, class: "form-control" %>
+          <%= error_tag f, :recruiter %>
+        </div>
+      </td>
+      <td>        
+        <div class="form-group">
+          <%= label f, :servicio_solicitado, class: "control-label" %>
+          <%= text_input f, :service, class: "form-control" %>
+          <%= error_tag f, :service %>
+        </div>
+      </td>
+    </tr>
+  </table>
 
-  <div class="form-group">
-    <%= label f, :nombre_del_solicitante, class: "control-label" %>
-    <%= text_input f, :name, class: "form-control" %>
-    <%= error_tag f, :name %>
-  </div>
-
-  <div class="form-group">
-    <%= label f, :nombre_del_que_brindo_el_servicio, class: "control-label" %>
-    <%= text_input f, :recruiter, class: "form-control" %>
-    <%= error_tag f, :recruiter %>
-  </div>
-
-  <div class="form-group">
-    <%= label f, :fecha, class: "control-label" %>
-    <%= date_select f, :date_recruitment, class: "form-control" %>
-    <%= error_tag f, :date_recruitment %>
-  </div>
-
-  <div class="form-group">
-    <%= label f, :puesto, class: "control-label" %>
-    <%= text_input f, :position, class: "form-control" %>
-    <%= error_tag f, :position %>
-  </div>
   <div class="form-group">    
     <%= hidden_input f, :process, value: "true" %>    
   </div>

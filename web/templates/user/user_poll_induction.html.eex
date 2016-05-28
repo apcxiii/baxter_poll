@@ -9,7 +9,46 @@
     <table class="table">
       <tr>
         <td><h2>Encuesta de la calidad de Inducción.</h2></td>
+      </tr>
 
+      <tr>
+        <td>
+          El objetivo de esta encuesta es conocer la opinión y sugerencias del curso de inducción de la compañía
+        </td>
+      </tr>
+      <tr>
+        <td>
+          Con la finalidad de poder ubicar puntos de mejora y realizar planes de acción que apoyen a la integración del candidato de una forma efectiva.
+        </td>
+      </tr>
+      <tr>
+        <td>
+          Este proceso se debe de llevar al finalizar el programa. Te pedimos contestar la encuesta y poder completarla para nuestra revisión.
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <table class="table">
+            <td>
+              <div class="form-group">
+                <%= label f, :nombre_del_solicitante, class: "control-label" %>
+                <%= text_input f, :name, class: "form-control" %>
+                <%= error_tag f, :name %>
+              </div>
+            </td>
+            <td>
+              <div class="form-group">
+                <%= label f, :area, class: "control-label" %>
+                <%= text_input f, :area, class: "form-control" %>
+                <%= error_tag f, :area %>
+              </div>
+            </td>
+            <td>
+              <%= label f, :fecha, class: "control-label" %>
+              <%= Timex.format!(Timex.Date.now,"{D}/{0M}/{YYYY}")%>
+            </td>
+          </table>          
+        </td>        
       </tr>
       <tr>
         <td>Al finalizar la inducción, por favor dedique unos minutos a contestar
@@ -24,35 +63,9 @@
     </table>
 </div>
 
-  <div class="form-group">  	
-    <%= label f, :correo, class: "control-label" %>
-    <%= email_input f, :email, class: "form-control" %>
-    <%= error_tag f, :email %>
-  </div>
+  
 
-  <div class="form-group">
-    <%= label f, :nombre, class: "control-label" %>
-    <%= text_input f, :name, class: "form-control" %>
-    <%= error_tag f, :name %>
-  </div>
-
-  <div class="form-group">
-    <%= label f, :apellido_paterno, class: "control-label" %>
-    <%= text_input f, :first_last_name, class: "form-control" %>
-    <%= error_tag f, :first_last_name %>
-  </div>
-
-  <div class="form-group">
-    <%= label f, :apellido_materno, class: "control-label" %>
-    <%= text_input f, :second_last_name, class: "form-control" %>
-    <%= error_tag f, :second_last_name %>
-  </div>
-
-  <div class="form-group">
-    <%= label f, :area, class: "control-label" %>
-    <%= text_input f, :area, class: "form-control" %>
-    <%= error_tag f, :area %>
-  </div>
+  
   <div class="form-group">    
     <%= hidden_input f, :process, value: "true" %>    
   </div>

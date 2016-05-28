@@ -99,7 +99,7 @@ defmodule BaxterPoll.UserController do
                                         email: Map.get(user_params, "email", nil),
                                         first_last_name: Map.get(user_params, "first_last_name", nil),
                                         second_last_name: Map.get(user_params, "second_last_name", nil),
-                                        area: Map.get(user_params, "area", nil),
+                                        area: Map.get(user_params, "area", nil),                                      
                                         process: true,
                                         id: id})
     Logger.info "changeset.user = #{inspect changeset_user}"
@@ -143,6 +143,7 @@ defmodule BaxterPoll.UserController do
                                         area: Map.get(user_params, "area", nil),
                                         position: Map.get(user_params, "position", nil),
                                         recruiter: Map.get(user_params, "recruiter", nil),
+                                        service: Map.get(user_params, "service", nil),
                                         date_recruitment: date,
                                         process: true,
                                         id: id})

@@ -2,10 +2,7 @@
 
 <ul>
 
-  <li>
-    <strong>Email:</strong>
-    <%= @user.email %>
-  </li>
+  
 
   <li>
     <strong>Área:</strong>
@@ -23,8 +20,8 @@
   </li>
 
   <li>
-    <strong>Apellido Materno:</strong>
-    <%= @user.second_last_name %>
+    <strong>Fecha:</strong>
+    <%= @user.created_at%>
   </li>
 
 </ul>

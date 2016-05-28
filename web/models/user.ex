@@ -10,6 +10,7 @@ defmodule BaxterPoll.User do
     field :area, :string
     field :position, :string
     field :recruiter, :string 
+    field :service, :string 
     field :date_recruitment, Timex.Ecto.DateTime
     field :process, :boolean, default: false
     has_many :poll_users, BaxterPoll.PollUser
@@ -18,8 +19,8 @@ defmodule BaxterPoll.User do
     timestamps([{:inserted_at,:created_at}])
   end
 
-  @required_fields ~w(email name)
-  @optional_fields ~w(area process date_recruitment recruiter first_last_name second_last_name position)
+  @required_fields ~w(name)
+  @optional_fields ~w(email service area process date_recruitment recruiter first_last_name second_last_name position)
 
   @doc """
   Creates a changeset based on the `model` and `params`.

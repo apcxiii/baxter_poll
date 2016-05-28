@@ -1,32 +1,33 @@
 <h2>Show user</h2>
 
 <ul>
-
+  
   <li>
-    <strong>Email:</strong>
-    <%= @user.email %>
-  </li>
-
-  <li>
-    <strong>Área:</strong>
-    <%= @user.area %>
-  </li>
-
-  <li>
-    <strong>Nombre:</strong>
+    <strong>Nombre del solicitante:</strong>
     <%= @user.name %>
   </li>
 
   <li>
-    <strong>Apellido Paterno:</strong>
-    <%= @user.first_last_name %>
+    <strong>Departamento que solicitó el servicio:</strong>
+    <%= @user.area %>
   </li>
 
   <li>
-    <strong>Apellido Materno:</strong>
-    <%= @user.second_last_name %>
+    <strong>Fecha:</strong>
+    <%= @user.created_at %>
   </li>
-
+  <li>
+    <strong>Puesto:</strong>
+    <%= @user.position %>
+  </li>
+  <li>
+    <strong>Nombre de quien brindó el servicio:</strong>
+    <%= @user.recruiter %>
+  </li>
+  <li>
+    <strong>Servicio solicitado:</strong>
+    <%= @user.service %>
+  </li>
 </ul>
 
 <%= for answer <- @user.user_poll_answers do %>
